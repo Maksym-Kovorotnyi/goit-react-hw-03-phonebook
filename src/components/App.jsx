@@ -13,18 +13,21 @@ export default class App extends Component {
   }
   
   componentDidMount() {
-  
+    const localStoregeContacts = JSON.parse(localStorage.getItem('contacts')) 
+    this.setState({ contacts: localStoregeContacts })
+    
 }
-  componentDidUpdate({name, number}) {
-  localStorage.setItem('contacts', this.setState(prevState => { return { contacts: [...prevState.contacts, { name: name, number: number, id: nanoid() },], } }))
+  componentDidUpdate() {
+    
+  localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
 }
   
-  setContact = ({ name }) => {
+  setContact = ({ name, number}) => {
     const checkName = this.state.contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
         if (checkName) {
             return alert(`${name} is already in contacts.`);
         }
-    
+    this.setState(prevState => { return { contacts: [...prevState.contacts, { name: name, number: number, id: nanoid() },], } })
   }
   
     filteredContacts = (e) => {

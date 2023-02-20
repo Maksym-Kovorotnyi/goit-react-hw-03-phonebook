@@ -13,7 +13,6 @@ handleChange = (e) => {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault()
     this.props.onSubmit(this.state)
 
 
