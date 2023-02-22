@@ -1,5 +1,6 @@
 import { Component } from "react";
-import css from './Form.module.css'
+import css from './Form.module.css';
+import PropTypes from 'prop-types';
 
 export class Form extends Component{
   state = {
@@ -43,4 +44,8 @@ handleChange = (e) => {
 
 </>
 } 
+}
+Form.propTypes = {
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 }
