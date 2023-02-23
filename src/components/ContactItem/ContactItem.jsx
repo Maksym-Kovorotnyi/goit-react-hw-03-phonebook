@@ -11,8 +11,8 @@ export const ContactItem = ({ id, name, number, onClick }) => (
 )
 
 ContactItem.propTypes = {
-    id: PropTypes.string,
-    name: PropTypes.string,
-    number: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
 };
