@@ -14,6 +14,9 @@ export class App extends Component {
   
   componentDidMount() {
     const localStoregeContacts = JSON.parse(localStorage.getItem('contacts')) 
+    if (!localStoregeContacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
     this.setState({ contacts: localStoregeContacts })   
 }
   componentDidUpdate() {
@@ -28,7 +31,7 @@ export class App extends Component {
     this.setState(prevState => { return { contacts: [...prevState.contacts, { name: name, number: number, id: nanoid() },], } })
   }
   
-    filteredContacts = (e) => {
+    filteredContacts = () => {
       const { contacts, filter } = this.state
       return contacts.filter(contact =>
         contact.name.toLowerCase().includes(filter.toLowerCase())
