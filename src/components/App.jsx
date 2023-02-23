@@ -6,7 +6,7 @@ import {Filter} from './Filter/Filter'
 
 
 
-export default class App extends Component {
+export class App extends Component {
   state = {
     contacts: [],
     filter: '',
@@ -14,11 +14,13 @@ export default class App extends Component {
   
   componentDidMount() {
     const localStoregeContacts = JSON.parse(localStorage.getItem('contacts')) 
-    this.setState({ contacts: localStoregeContacts })
+    if (!localStoregeContacts) {
+      this.setState({ contacts: [] })
+    }
     
+    this.setState({ contacts: localStoregeContacts })   
 }
   componentDidUpdate() {
-    
   localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
 }
   
@@ -51,7 +53,6 @@ export default class App extends Component {
 
     render() {
       return <>
-        <div>
         <h1>Phonebook</h1>
         <Form
         onSubmit={this.setContact}
@@ -60,11 +61,10 @@ export default class App extends Component {
           onFilter={this.handleChangedFilter}
         />
         <h2>Contacts</h2>
-        <ContactsList
-            contacts={this.filteredContacts()}
-            onDeleteContact={this.deleteContact}
-        />
-      </div>
+        {this.state.contacts??<ContactsList
+          contacts={this.filteredContacts()}
+          onDeleteContact={this.deleteContact}
+        />}
       </>
     }
   }
